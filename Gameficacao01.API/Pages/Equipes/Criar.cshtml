@@ -1,0 +1,50 @@
+@page
+@model Gameficacao01.API.Pages.Equipes.Criar
+@{
+    ViewData["Title"] = "Criar";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <!-- Nome da Equipe -->
+    <div class="form-group">
+        <label asp-for="Equipe.Nome"></label>
+        <input asp-for="Equipe.Nome" class="form-control" />
+        <span asp-validation-for="Equipe.Nome" class="text-danger"></span>
+    </div>
+
+    <!-- Descrição da Equipe -->
+    <div class="form-group">
+        <label asp-for="Equipe.Descricao"></label>
+        <textarea asp-for="Equipe.Descricao" class="form-control"></textarea>
+        <span asp-validation-for="Equipe.Descricao" class="text-danger"></span>
+    </div>
+
+    <!-- Projeto associado à equipe -->
+    <!-- Ainda precisamos de uma lista suspensa para selecionar projetos. Vou deixar isso como um exemplo, mas você pode precisar preencher a lista com os projetos atuais do banco de dados -->
+    <div class="form-group">
+        <label asp-for="Equipe.ProjetoId">Projeto:</label>
+        <select asp-for="Equipe.ProjetoId" asp-items="Model.Projetos" class="form-control">
+            <option value="">-- Selecione o Projeto --</option>
+        </select>
+        <span asp-validation-for="Equipe.ProjetoId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+<!-- Seleção de Membros para a Equipe -->
+<div class="form-group">
+    <label for="MembroId">Selecione os Membros:</label>
+    <select class="form-control" id="MembroId" name="MembroId" multiple>
+       @if (Model.MembrosOpcoes != null)
+{
+    @foreach (var membro in Model.MembrosOpcoes)
+    {
+        <option value="@membro.Value">@membro.Text</option>
+    }
+}
+    </select>
+</div>
